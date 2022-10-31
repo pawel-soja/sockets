@@ -1,4 +1,4 @@
-name: Ubuntu
+name: Linux
 
 on: [push, pull_request, workflow_dispatch]
 
@@ -9,11 +9,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Configure
+    - name: Build
       run: |
         mkdir build
         cd build
         cmake ..
-    - name: Build
-      run: cmake --build .
-
+        cmake --build .
+    - name: Test
+      run: |
+        cd build
+        ctest --verbose
